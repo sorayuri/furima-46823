@@ -5,7 +5,7 @@
 |---------------------|--------|-------------------------|
 | nickname            | string | null: false              |
 | email               | string | null: false, unique: true|
-| password_digest     | string | null: false              |
+| encrypted_password  | string | null: false              |
 | last_name           | string | null: false              |
 | first_name          | string | null: false              |
 | last_name_kana      | string | null: false              |
@@ -23,12 +23,11 @@ has_many :orders
 | name                     | string   | null: false                     |
 | description              | text     | null: false                     |
 | price                    | integer  | null: false                     |
-| image                    | string   | null: false                     |
 | category_id             | integer  | null: false                     |
 | condition_id            | integer  | null: false                     |
 | shipping_fee_burden_id  | integer  | null: false                     |
 | prefecture_id           | integer  | null: false                     |
-| shipping_days_id        | integer  | null: false                     |
+| shipping_day_id         | integer  | null: false                     |
 | user_id                 | bigint   | null: false, foreign_key: true  |
 
 ### Association
