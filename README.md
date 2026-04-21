@@ -28,7 +28,7 @@ has_many :orders
 | shipping_fee_burden_id  | integer  | null: false                     |
 | prefecture_id           | integer  | null: false                     |
 | shipping_day_id         | integer  | null: false                     |
-| user_id                 | bigint   | null: false, foreign_key: true  |
+| user                   |references | null: false, foreign_key: true  |
 
 ### Association
 belongs_to :user
@@ -38,7 +38,7 @@ has_one :order
 ## orders table
 | Column             | Type                | Options                   |
 |--------------------|------------|---------------------|
-| user_id    | bigint   | null: false, foreign_key: true|
+| user      | references| null: false, foreign_key: true|
 | item_id    | bigint   | null: false, foreign_key: true|
 
 ### Association
@@ -51,7 +51,7 @@ has_one :address
 ## addresses table
 | Column             | Type                | Options                   |
 |-------------------------------------|------------|--------------------------------|
-| order_id       | bigint   | null: false, foreign_key: true|
+| order          | references | null: false, foreign_key: true|
 | postal_code    | string   | null: false                    |
 | prefecture_id  | integer  | null: false                    |
 | city           | string   | null: false                    |
