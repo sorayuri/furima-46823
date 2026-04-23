@@ -20,7 +20,7 @@ class User < ApplicationRecord
     validates :first_name_kana
   end
 
-  FULL_WIDTH_REGEX = /\A[ぁ-んァ-ン一-龥々ー]+\z/
+  FULL_WIDTH_REGEX = /\A[ぁ-んァ-ヶ一-龥々ー]+\z/
 
   with_options format: { with: FULL_WIDTH_REGEX, message: 'Input full-width characters' } do
     validates :last_name
