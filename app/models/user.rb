@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-    
+
   validates :nickname, presence: true
   validates :last_name, presence: true
   validates :first_name, presence: true
@@ -11,23 +11,23 @@ class User < ApplicationRecord
   validates :first_name_kana, presence: true
   validates :birth_date, presence: true
 
-   validates :email, presence: true, uniqueness: true,format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
- KANA_REGEX = /\A[ァ-ヶー]+\z/.freeze
+  KANA_REGEX = /\A[ァ-ヶー]+\z/
 
-  with_options format: { with: KANA_REGEX, message: "Input full-width characters" } do
+  with_options format: { with: KANA_REGEX, message: 'Input full-width characters' } do
     validates :last_name_kana
-     validates :first_name_kana
-   end
+    validates :first_name_kana
+  end
 
- FULL_WIDTH_REGEX = /\A[ぁ-んァ-ン一-龥々ー]+\z/
+  FULL_WIDTH_REGEX = /\A[ぁ-んァ-ン一-龥々ー]+\z/
 
- with_options format: { with: FULL_WIDTH_REGEX, message: "Input full-width characters" } do
-  validates :last_name
-  validates :first_name
- end
+  with_options format: { with: FULL_WIDTH_REGEX, message: 'Input full-width characters' } do
+    validates :last_name
+    validates :first_name
+  end
 
-  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
+  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i
 
-  validates_format_of :password, with: PASSWORD_REGEX,message: "must include both letters and numbers"
+  validates_format_of :password, with: PASSWORD_REGEX, message: 'must include both letters and numbers'
 end
