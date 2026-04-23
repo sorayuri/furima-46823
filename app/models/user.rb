@@ -11,7 +11,6 @@ class User < ApplicationRecord
   validates :first_name_kana, presence: true
   validates :birth_date, presence: true
 
-  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   KANA_REGEX = /\A[ァ-ヶー]+\z/
 
