@@ -16,7 +16,7 @@ class Item < ApplicationRecord
 
    validates :category_id, numericality: { other_than: 1, message: "を選択してください" }
    validates :condition_id, numericality: { other_than: 1, message: "を選択してください" }
-   validates :shipping_fee_id, numericality: { other_than: 1, message: "を選択してください" }other_than: 1, message: "を選択してください" }
+   validates :shipping_fee_id, numericality: { other_than: 1, message: "を選択してください" }
    validates :prefecture_id, numericality: { other_than: 1, message: "を選択してください" }
    validates :shipping_day_id, numericality: { other_than: 1, message: "を選択してください" }
 
