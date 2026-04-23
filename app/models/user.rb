@@ -15,12 +15,19 @@ class User < ApplicationRecord
 
  KANA_REGEX = /\A[ァ-ヶー]+\z/.freeze
 
-  with_options format: { with: KANA_REGEX, message: "は全角カタカナで入力してください" } do
+  with_options format: { with: KANA_REGEX, message: "Input full-width characters" } do
     validates :last_name_kana
      validates :first_name_kana
    end
 
+ FULL_WIDTH_REGEX = /\A[ぁ-んァ-ン一-龥々ー]+\z/
+
+ with_options format: { with: FULL_WIDTH_REGEX, message: "Input full-width characters" } do
+  validates :last_name
+  validates :first_name
+ end
+
   PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze
 
-  validates_format_of :password, with: PASSWORD_REGEX, message: 'には英字と数字の両方を含めて設定してください'
+  validates_format_of :password, with: PASSWORD_REGEX,message: "must include both letters and numbers"
 end
