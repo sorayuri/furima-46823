@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include Gon::ControllerHelpers
   before_action :basic_auth
   before_action :configure_permitted_parameters, if: :devise_controller?
 
