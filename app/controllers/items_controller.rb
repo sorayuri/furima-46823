@@ -47,8 +47,10 @@ class ItemsController < ApplicationController
   end
 
   def move_to_index
-    redirect_to root_path unless current_user.id == @item.user_id
+    if current_user.id != @item.user_id || @item.order.present?
+    redirect_to root_path
   end
+end
 
   def item_params
     params.require(:item).permit(:name, :description, :price, :category_id, :condition_id, :shipping_fee_id, :prefecture_id,
