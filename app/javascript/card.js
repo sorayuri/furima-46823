@@ -1,7 +1,5 @@
 const pay = () => {
   const publicKey = gon.public_key;
-  if (!publicKey) return;
-
   const payjp = Payjp(publicKey);
   const elements = payjp.elements();
   const numberElement = elements.create('cardNumber');
@@ -13,7 +11,7 @@ const pay = () => {
    cvcElement.mount('#cvc-form');
 
   const form = document.getElementById('charge-form');
-  if (!form) return;
+
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -36,4 +34,5 @@ const pay = () => {
   };
 
 
-window.addEventListener("load", pay);
+  window.addEventListener("load", pay);
+  window.addEventListener("render", pay);
