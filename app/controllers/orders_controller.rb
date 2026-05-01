@@ -10,15 +10,22 @@ class OrdersController < ApplicationController
 
   def create
     @order_address = OrderAddress.new(order_params)
+    
     if @order_address.valid?
+      begin
       pay_item
       @order_address.save
       redirect_to root_path
-    else
-      gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+    rescue Payjp::Error => e
+       @order_address.errors.add(:base, "Card information is invalid.")
       render :index, status: :unprocessable_entity
     end
+      else
+        gon.public_key = ENV['PAYJP_PUBLIC_KEY']
+        render :index, status: :unprocessable_entity
   end
+  end
+
 
   private
 
@@ -29,8 +36,6 @@ class OrdersController < ApplicationController
   end
 
   def pay_item
-    Rails.logger.debug "SECRET_KEY: #{ENV['PAYJP_SECRET_KEY']}"
-
     Payjp.api_key = ENV['PAYJP_SECRET_KEY']
     Payjp::Charge.create(
       amount: @item.price,
@@ -40,10 +45,16 @@ class OrdersController < ApplicationController
   end
 
   def move_to_index
-    return unless @item.order.present? || current_user.id == @item.user_id
-
+    unless user_signed_in?
+    redirect_to new_user_session_path
+    redirect_to root_path
+    return
+  end
+  
+  if @item.user_id == current_user.id || @item.order.present?
     redirect_to root_path
   end
+end
 
   def set_item
     @item = Item.find(params[:item_id])
